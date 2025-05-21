@@ -1,8 +1,6 @@
 #!/bin/sh
 echo "Starting OvenPlatform Frontend..."
 
-export DOCKER_BUILD=true
-
 if [ -f .env ]; then
   echo "Found .env file, using environment variables from file"
 else
@@ -14,6 +12,7 @@ else
   echo "VITE_TURN_SERVER_URL_TCP=${VITE_TURN_SERVER_URL_TCP:-turn:turn.example.com:3478?transport=tcp}" >> .env
   echo "VITE_TURN_SERVER_USERNAME=${VITE_TURN_SERVER_USERNAME:-username}" >> .env
   echo "VITE_TURN_SERVER_CREDENTIAL=${VITE_TURN_SERVER_CREDENTIAL:-password}" >> .env
+  echo "VITE_MODE=${VITE_MODE:-production}" >> .env
 fi
 
 echo "Environment configuration complete"
