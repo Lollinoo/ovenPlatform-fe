@@ -1,0 +1,19 @@
+services:
+  oven-frontend-prod:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    image: oven-frontend-prod:1.5.0
+    hostname: oven-frontend-prod
+    container_name: oven-frontend-prod
+    ports:
+      - "4173:4173"
+    env_file:
+      - .env
+    restart: unless-stopped
+    networks:
+      - ovenPlatform-net
+
+networks:
+  ovenPlatform-net:
+    external: true

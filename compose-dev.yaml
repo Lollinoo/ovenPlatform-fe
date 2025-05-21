@@ -1,21 +1,18 @@
 services:
-  oven-frontend:
+  oven-frontend-dev:
     build:
       context: .
       dockerfile: Dockerfile.dev
     image: oven-frontend-dev:1.5.0
+    hostname: oven-frontend-dev
     container_name: oven-frontend-dev
     ports:
       - "8080:8080"
     volumes:
       - ./:/app
       - /app/node_modules
-    environment:
-      - NODE_ENV=development
-      # - VITE_API_URL=http://custom-api:3000
     env_file:
       - ./.env.development
-      # - ./.env.local
     stdin_open: true
     tty: true
     restart: unless-stopped
