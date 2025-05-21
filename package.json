@@ -1,0 +1,45 @@
+{
+  "name": "oven-frontend",
+  "private": true,
+  "version": "1.5.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "check-env": "node scripts/check-env.cjs",
+    "setup-env": "node scripts/setup-env.cjs",
+    "predev": "npm run check-env",
+    "prebuild": "npm run check-env",
+    "update-env-example": "node scripts/generate-env.cjs",
+    "docker-build:dev": "docker build -t oven-frontend-dev:1.5.0 -f Dockerfile.dev .",
+    "docker-build:prod": "docker build -t oven-frontend-prod:1.5.0 -f Dockerfile.prod .",
+    "docker-run:dev": "docker compose -f compose-dev.yaml up -d --force-recreate "
+  },
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/icons-material": "^7.1.0",
+    "@mui/material": "^7.1.0",
+    "hls.js": "^1.6.2",
+    "ovenplayer": "^0.10.40",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-router-dom": "^7.5.3",
+    "styled-jsx": "^5.1.7",
+    "zod": "^3.24.4"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.25.0",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "@vitejs/plugin-react": "^4.4.1",
+    "dotenv": "^16.5.0",
+    "eslint": "^9.25.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.19",
+    "globals": "^16.0.0",
+    "vite": "^6.3.5"
+  }
+}

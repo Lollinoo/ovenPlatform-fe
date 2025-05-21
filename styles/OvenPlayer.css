@@ -1,0 +1,241 @@
+.oven-player-container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.player-wrapper {
+  position: relative;
+  padding-top: 56.25%; /* 16:9 Aspect Ratio */
+  background-color: var(--color-background-alt);
+  border-radius: var(--border-radius-medium);
+  overflow: hidden;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  min-height: 360px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all var(--transition-normal);
+}
+
+.player-wrapper:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+  border-color: rgba(145, 71, 255, 0.2);
+}
+
+#player {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1; /* Assegniamo un z-index per controllare la sovrapposizione */
+}
+
+.player-element {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.player-error {
+  color: var(--color-error);
+  text-align: center;
+  margin-top: var(--spacing-md);
+  padding: var(--spacing-md);
+  background-color: rgba(233, 25, 22, 0.1);
+  border-radius: var(--border-radius-small);
+  font-weight: var(--font-weight-medium);
+  border-left: 4px solid var(--color-error);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.player-error::before {
+  content: "⚠️";
+  font-size: var(--font-size-lg);
+}
+
+.player-error-message {
+  color: #ff4d4f;
+  text-align: center;
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: rgba(255, 77, 79, 0.1);
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.player-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--color-text);
+  z-index: 3; /* Livello superiore all'overlay di errore */
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.player-loading::before {
+  content: "";
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  border-top-color: var(--color-primary);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Overlay di errore migliorato con stile Twitch */
+.player-error-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2; /* Assicuriamoci che sia sopra il player ma sotto il loading */
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.player-error-content {
+  background-color: var(--color-background-alt);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius-medium);
+  text-align: center;
+  max-width: 80%;
+  color: var(--color-text);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--color-error);
+  animation: scaleIn 0.3s ease;
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.player-error-icon {
+  font-size: 36px;
+  margin-bottom: var(--spacing-md);
+  color: var(--color-error);
+}
+
+.player-error-content h3 {
+  margin: 0 0 var(--spacing-sm) 0;
+  font-size: var(--font-size-lg);
+  color: var(--color-error);
+  font-weight: var(--font-weight-bold);
+}
+
+.player-error-content p {
+  margin: 0 0 var(--spacing-lg) 0;
+  font-size: var(--font-size-md);
+  color: var(--color-text-muted);
+  word-break: break-word; /* Per gestire messaggi di errore lunghi */
+  line-height: 1.5;
+}
+
+.player-retry-button {
+  background: linear-gradient(to right, var(--color-primary), var(--color-primary-dark));
+  color: white;
+  border: none;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius-small);
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  transition: all var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  box-shadow: 0 4px 10px rgba(145, 71, 255, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.player-retry-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: all 0.6s;
+}
+
+.player-retry-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(145, 71, 255, 0.4);
+  background: linear-gradient(to right, var(--color-primary-dark), var(--color-primary));
+}
+
+.player-retry-button:hover::before {
+  left: 100%;
+}
+
+.player-retry-button:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 8px rgba(145, 71, 255, 0.3);
+}
+
+/* Responsive Design per OvenPlayer */
+@media (max-width: 768px) {
+  .oven-player-container {
+    max-width: 100%;
+  }
+  
+  .player-wrapper {
+    min-height: 240px;
+  }
+  
+  .player-error-content {
+    padding: var(--spacing-md);
+  }
+}
+
+@media (max-width: 480px) {
+  .player-wrapper {
+    border-radius: var(--border-radius-small);
+    min-height: 180px;
+  }
+  
+  .player-loading {
+    font-size: var(--font-size-sm);
+  }
+  
+  .player-loading::before {
+    width: 30px;
+    height: 30px;
+    border-width: 2px;
+  }
+  
+  .player-error {
+    font-size: var(--font-size-sm);
+    padding: var(--spacing-sm);
+  }
+  
+  .player-error::before {
+    font-size: var(--font-size-md);
+  }
+}

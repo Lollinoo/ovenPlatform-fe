@@ -1,0 +1,580 @@
+/* PlayerPage stile Twitch - Prima parte */
+.player-page {
+  background-color: var(--color-background);
+  min-height: 100vh;
+  padding-top: 1rem; /* Allineato con la nuova navbar */
+  padding-bottom: var(--spacing-xl);
+}
+
+.player-container {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+}
+
+.player-main {
+  width: 100%;
+}
+
+.video-container {
+  position: relative;
+  width: 100%;
+  background-color: var(--color-background-alt);
+  border-radius: var(--border-radius-medium);
+  overflow: hidden;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all var(--transition-normal);
+}
+
+.video-container:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+  border-color: rgba(145, 71, 255, 0.2);
+}
+
+.player-wrapper {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+.player-title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+  margin: var(--spacing-md) 0;
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+
+.player-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(
+    to right,
+    var(--color-primary),
+    var(--color-primary-dark)
+  );
+  border-radius: 3px;
+}
+
+.player-loading {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+  font-size: var(--font-size-md);
+  color: var(--color-text);
+  background-color: var(--color-background-alt);
+  border-radius: var(--border-radius-medium);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.player-loading::before {
+  content: "";
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(255, 255, 255, 0.1);
+  border-left-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: var(--spacing-md);
+}
+
+.player-error-message {
+  padding: var(--spacing-lg);
+  background-color: rgba(233, 25, 22, 0.1);
+  color: var(--color-error);
+  border-left: 4px solid var(--color-error);
+  margin: var(--spacing-md) 0;
+  border-radius: var(--border-radius-small);
+  display: flex;
+  align-items: center;
+}
+
+.player-error-message::before {
+  content: "⚠️";
+  font-size: var(--font-size-xl);
+  margin-right: var(--spacing-md);
+}
+
+.player-info {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+.player-info h2 {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.player-info p {
+  line-height: 1.6;
+  color: #4a4a4a;
+}
+
+.stream-note {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background-color: #fff8e1;
+  border-left: 4px solid #ffc107;
+  font-style: italic;
+}
+
+.stream-details {
+  margin-top: 16px;
+  background-color: #f5f7fa;
+  border-radius: var(--md-border-radius-medium);
+  padding: 16px;
+  box-shadow: var(--md-elevation-1);
+}
+
+.stream-detail-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.stream-detail-item:last-child {
+  border-bottom: none;
+}
+
+.detail-label {
+  color: rgba(0, 0, 0, 0.6);
+  font-weight: var(--md-font-weight-medium);
+  font-size: 0.9rem;
+}
+
+.detail-value {
+  color: var(--md-primary);
+  font-weight: var(--md-font-weight-medium);
+}
+
+@media (max-width: 768px) {
+  .player-page {
+    padding: 1rem;
+  }
+
+  .player-container {
+    padding: 1rem;
+  }
+
+  .player-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+/* PlayerPage stile Twitch - Seconda parte */
+.stream-info-bar {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-md);
+  background-color: var(--color-background-alt);
+  border-radius: var(--border-radius-medium);
+  margin-top: var(--spacing-md);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all var(--transition-fast);
+}
+
+.stream-info-bar:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.stream-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background-color: var(--color-background-light);
+  margin-right: var(--spacing-md);
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 2px var(--color-primary);
+  transition: transform var(--transition-fast);
+}
+
+.stream-info-bar:hover .stream-avatar {
+  transform: scale(1.05);
+}
+
+.stream-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.stream-details {
+  flex-grow: 1;
+  background-color: transparent;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+  margin-top: 0;
+}
+
+.stream-name {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  margin: 0 0 var(--spacing-xs) 0;
+  color: var(--color-text);
+  display: inline-block;
+  position: relative;
+}
+
+.stream-name::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(to right, var(--color-primary), transparent);
+  transition: width 0.3s ease;
+}
+
+.stream-info-bar:hover .stream-name::after {
+  width: 100%;
+}
+
+.stream-stats {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  margin-top: var(--spacing-xs);
+}
+
+.stream-stat {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  background-color: var(--color-background);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-small);
+  transition: all var(--transition-fast);
+}
+
+.stream-stat:hover {
+  background-color: var(--color-background-light);
+  transform: translateY(-2px);
+}
+
+.stream-actions {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-left: auto;
+}
+
+.action-button {
+  background-color: var(--color-background-light);
+  border: none;
+  border-radius: var(--border-radius-small);
+  color: var(--color-text);
+  font-size: var(--font-size-sm);
+  padding: var(--spacing-xs) var(--spacing-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  position: relative;
+  overflow: hidden;
+}
+
+.action-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transition: all 0.6s;
+}
+
+.action-button:hover {
+  background-color: var(--color-background);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.action-button:hover::before {
+  left: 100%;
+}
+
+.follow-button {
+  background: linear-gradient(
+    to right,
+    var(--color-primary),
+    var(--color-primary-dark)
+  );
+  color: white;
+  font-weight: var(--font-weight-medium);
+  box-shadow: 0 4px 8px rgba(145, 71, 255, 0.3);
+}
+
+.follow-button:hover {
+  background: linear-gradient(
+    to right,
+    var(--color-primary-dark),
+    var(--color-primary)
+  );
+  box-shadow: 0 6px 12px rgba(145, 71, 255, 0.4);
+}
+
+/* Stream Info Card - stile coerente con le card delle Streams */
+.stream-info-card {
+  background-color: var(--color-background-alt);
+  border-radius: var(--border-radius-large);
+  padding: var(--spacing-md);
+  margin-top: var(--spacing-md);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all var(--transition-normal);
+}
+
+.stream-info-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  border-color: rgba(145, 71, 255, 0.2);
+}
+
+.stream-info-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: var(--spacing-sm);
+}
+
+.stream-title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+  margin: 0;
+  position: relative;
+  display: inline-block;
+}
+
+.stream-title::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(
+    to right,
+    var(--color-primary),
+    var(--color-primary-dark)
+  );
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.stream-info-card:hover .stream-title::after {
+  width: 100px;
+}
+
+/* Contatore visualizzatori - stile coerente con le card delle Streams */
+.viewers-count {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: var(--color-text);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  padding: 6px var(--spacing-sm);
+  border-radius: var(--border-radius-small);
+  position: relative;
+  transition: transform 0.15s ease-in-out, background-color 0.2s ease;
+}
+
+.viewers-count svg {
+  color: var(--color-primary);
+}
+
+.viewers-count span {
+  position: relative;
+}
+
+/* Animazione per l'aggiornamento del contatore visualizzazioni */
+@keyframes pulse-update {
+  0% {
+    transform: scale(1);
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+  50% {
+    transform: scale(1.05);
+    background-color: rgba(var(--color-primary-rgb), 0.4);
+  }
+  100% {
+    transform: scale(1);
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+}
+
+.viewers-count.updated {
+  animation: pulse-update 0.6s ease-in-out;
+}
+
+.stream-status {
+  color: var(--color-success);
+  font-weight: var(--font-weight-medium);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  margin: var(--spacing-sm);
+}
+
+/* .stream-status.active:before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-color: var(--color-success);
+  border-radius: 50%;
+  margin-right: 4px;
+} */
+
+/* Dettagli dello stream */
+.stream-details {
+  background-color: var(--color-background);
+  border-radius: var(--border-radius-medium);
+  padding: var(--spacing-md);
+  margin-top: var(--spacing-sm);
+}
+
+.stream-detail-item {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--spacing-xs) 0;
+  font-size: var(--font-size-sm);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.stream-detail-item:last-child {
+  border-bottom: none;
+}
+
+span.detail-label {
+  color: var(--color-text);
+  font-weight: var(--font-weight-medium);
+}
+
+span.detail-value {
+  color: var(--color-text-muted);
+  font-weight: var(--font-weight-bold);
+}
+
+/* Responsive Design - Ottimizzazioni per dispositivi mobili */
+@media (max-width: 768px) {
+  .player-page {
+    padding-top: 60px;
+  }
+
+  .player-container {
+    padding: var(--spacing-sm);
+  }
+
+  .player-title {
+    font-size: var(--font-size-lg);
+    margin: var(--spacing-sm) 0;
+  }
+
+  .stream-info-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .stream-avatar {
+    margin-right: 0;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .stream-actions {
+    margin-left: 0;
+    margin-top: var(--spacing-md);
+    width: 100%;
+    justify-content: center;
+  }
+
+  .action-button {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .stream-stats {
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+  }
+
+  .stream-stat {
+    font-size: var(--font-size-xs);
+  }
+
+  .stream-info-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+  }
+
+  .viewers-count {
+    align-self: flex-start;
+  }
+
+  .stream-title {
+    font-size: var(--font-size-lg);
+  }
+}
+
+@media (max-width: 480px) {
+  .player-loading::before {
+    width: 30px;
+    height: 30px;
+  }
+
+  .player-error-content {
+    padding: var(--spacing-md);
+    max-width: 90%;
+  }
+
+  .player-error-content h3 {
+    font-size: var(--font-size-md);
+  }
+
+  .player-error-content p {
+    font-size: var(--font-size-sm);
+  }
+
+  .stream-name {
+    font-size: var(--font-size-lg);
+  }
+
+  .stream-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .action-button {
+    width: 100%;
+    padding: var(--spacing-sm);
+  }
+}

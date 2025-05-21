@@ -1,0 +1,265 @@
+/* Stile Navbar ispirato a Twitch con elementi Material Design */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background-color: var(--color-background-alt);
+  border-bottom: 1px solid var(--color-background-light);
+  z-index: var(--z-index-fixed);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.navbar-container {
+  max-width: 1200px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.navbar-logo a {
+  color: var(--color-primary);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-black);
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  transition: color var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.navbar-logo a:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-primary);
+  transform: scaleX(0);
+  transform-origin: bottom right;
+  transition: transform 0.3s ease-out;
+}
+
+.navbar-logo a:hover {
+  color: var(--color-primary-dark);
+}
+
+.navbar-logo a:hover:after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+.navbar-menu {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-item {
+  margin: 0 var(--spacing-sm);
+  display: flex;
+  align-items: center;
+}
+
+.navbar-link {
+  display: inline-block;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  color: var(--color-text);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  border-radius: var(--border-radius-small);
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+.navbar-user {
+  color: var(--color-text);
+  font-weight: var(--font-weight-medium);
+  margin-right: var(--spacing-sm);
+}
+
+.navbar-logout {
+  background-color: transparent;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+  border-radius: var(--border-radius-small);
+  padding: 4px 10px;
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.navbar-logout:hover {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.navbar-link:after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-primary);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.navbar-link:hover {
+  color: var(--color-primary);
+}
+
+.navbar-link:hover:after {
+  transform: scaleX(1);
+}
+
+.navbar-link.active {
+  color: var(--color-primary);
+}
+
+.navbar-link.active:after {
+  transform: scaleX(1);
+}
+
+.navbar-toggle {
+  display: none;
+  cursor: pointer;
+  width: 30px;
+  height: 20px;
+  position: relative;
+}
+
+.toggle-icon {
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-text);
+  top: 50%;
+  transform: translateY(-50%);
+  transition: background-color 0.3s ease;
+}
+
+.toggle-icon:before,
+.toggle-icon:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-text);
+  transition: transform 0.3s ease;
+}
+
+.toggle-icon:before {
+  top: -8px;
+}
+
+.toggle-icon:after {
+  bottom: -8px;
+}
+
+.toggle-icon.open {
+  background-color: transparent;
+}
+
+.toggle-icon.open:before {
+  transform: rotate(45deg) translate(5px, 5px);
+  background-color: var(--color-primary);
+}
+
+.toggle-icon.open:after {
+  transform: rotate(-45deg) translate(5px, -5px);
+  background-color: var(--color-primary);
+}
+
+/* Badge di versione e ambiente */
+.version-badge {
+  display: flex;
+  align-items: center;
+  font-size: var(--font-size-xs);
+  margin-left: 12px;
+  padding: 2px 4px;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.2);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.5px;
+}
+
+.version-badge span {
+  margin-left: 5px;
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-size: 0.7rem;
+  font-weight: var(--font-weight-bold);
+}
+
+.env-dev {
+  background-color: var(--color-warning);
+  color: var(--color-dark);
+}
+
+.env-prod {
+  background-color: var(--color-success);
+  color: var(--color-light);
+}
+
+@media (max-width: 768px) {
+  .navbar-container {
+    padding: 0 var(--spacing-sm);
+  }
+  
+  .navbar-toggle {
+    display: block;
+    z-index: 10;
+  }
+  
+  .navbar-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 70%;
+    max-width: 300px;
+    height: 100vh;
+    background-color: var(--color-background-alt);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 80px var(--spacing-md) var(--spacing-md);
+    transition: right 0.3s ease;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+    z-index: 5;
+  }
+  
+  .navbar-menu.active {
+    right: 0;
+  }
+  
+  .navbar-item {
+    width: 100%;
+    margin: var(--spacing-xs) 0;
+  }
+  
+  .navbar-link {
+    width: 100%;
+    padding: var(--spacing-sm) 0;
+    font-size: var(--font-size-md);
+  }
+
+  .version-badge {
+    font-size: 0.6rem;
+    margin-left: 8px;
+    padding: 1px 3px;
+  }
+}

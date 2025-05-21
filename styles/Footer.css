@@ -1,0 +1,103 @@
+/* Footer con stile compatibile con il tema Twitch-like */
+.footer {
+  background-color: var(--color-background-alt);
+  border-top: 1px solid var(--color-background-light);
+  padding: var(--spacing-md) var(--spacing-lg);
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+}
+
+.footer-links {
+  display: flex;
+  align-items: center;
+}
+
+.github-link {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  color: var(--color-text);
+  font-weight: var(--font-weight-medium);
+  transition: color 0.2s ease;
+  white-space: nowrap;
+}
+
+.github-link:hover {
+  color: var(--color-primary);
+}
+
+.github-icon {
+  transition: transform 0.2s ease;
+}
+
+.github-link:hover .github-icon {
+  transform: scale(1.1);
+}
+
+.footer-copyright {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  text-align: center;
+}
+
+.made-with-love {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+}
+
+.heart-icon {
+  transition: transform 0.3s ease;
+  margin: 0 var(--spacing-xs);
+}
+
+.made-with-love:hover .heart-icon {
+  transform: scale(1.3);
+}
+
+/* Media queries per responsività */
+@media (max-width: 768px) {
+  .footer {
+    padding: var(--spacing-sm);
+  }
+  
+  .footer-content {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+}
+
+/* Per schermi molto piccoli */
+@media (max-width: 480px) {
+  .github-link {
+    font-size: var(--font-size-sm);
+  }
+  
+  .github-icon {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .heart-icon {
+    width: 14px;
+    height: 14px;
+  }
+  
+  .made-with-love {
+    font-size: var(--font-size-xs);
+  }
+}
