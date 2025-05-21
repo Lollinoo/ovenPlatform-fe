@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import authService from "../utils/authService";
 import { fetchUserStreamInfo } from "../utils/streamInfoService";
@@ -68,19 +68,25 @@ function ProfilePage() {
   // Load user data
   useEffect(() => {
     if (currentUser) {
-      setUsername(currentUser.username || "");
-      setEmail(currentUser.email || "");
+      const userDataChanged =
+        username !== (currentUser.username || "") ||
+        email !== (currentUser.email || "") ||
+        rtmpUrl !== (currentUser.rtmpUrl || "");
 
-      // Gestione dell'URL RTMP
-      if (currentUser.rtmpUrl) {
-        setRtmpUrl(currentUser.rtmpUrl);
-      } else {
-        setRtmpUrl(""); // Imposta stringa vuota invece di null
-      }
+      if (userDataChanged) {
+        setUsername(currentUser.username || "");
+        setEmail(currentUser.email || "");
 
-      if (currentUser.rtmpUrlExpiresAt) {
-        const expiryDate = new Date(currentUser.rtmpUrlExpiresAt);
-        setRtmpUrlExpiry(expiryDate);
+        if (currentUser.rtmpUrl) {
+          setRtmpUrl(currentUser.rtmpUrl);
+        } else {
+          setRtmpUrl("");
+        }
+
+        if (currentUser.rtmpUrlExpiresAt) {
+          const expiryDate = new Date(currentUser.rtmpUrlExpiresAt);
+          setRtmpUrlExpiry(expiryDate);
+        }
       }
 
       // Check username change availability
@@ -106,16 +112,14 @@ function ProfilePage() {
           isChangeAllowed(currentUser.lastRtmpRegeneratedAt)
         );
       }
-
-      // Fetch stream info
-      fetchStreamInfo();
     }
-  }, [currentUser]);
+  }, [currentUser, username, email, rtmpUrl]);
 
   // Function to fetch stream information
-  const fetchStreamInfo = async () => {
-    // Evita chiamate multiple simultanee
+  const fetchStreamInfo = useCallback(async () => {
     if (fetchInProgress.current) return;
+
+    if (activeTab !== "stream" && streamInfo !== null) return;
 
     try {
       fetchInProgress.current = true;
@@ -135,17 +139,24 @@ function ProfilePage() {
       setStreamLoading(false);
       fetchInProgress.current = false;
     }
-  };
+  }, [activeTab, streamInfo]);
 
   // Set up periodic refresh of stream status
   useEffect(() => {
-    // Initial fetch
-    if (currentUser) {
+    // Cleanup any existing interval
+    if (streamTimerRef.current) {
+      clearInterval(streamTimerRef.current);
+      streamTimerRef.current = null;
+    }
+
+    // Initial fetch only when needed
+    if (currentUser && (activeTab === "stream" || streamInfo === null)) {
       fetchStreamInfo();
     }
 
-    // Set up interval for refreshing stream status
-    if (activeTab === "stream" && currentUser) {
+    // Set up interval for refreshing stream status only when actively viewing stream tab
+    // or when stream is active (to keep status updated)
+    if (currentUser && (activeTab === "stream" || isStreamActive)) {
       streamTimerRef.current = setInterval(() => {
         fetchStreamInfo();
       }, 30000); // Refresh every 30 seconds
@@ -154,9 +165,49 @@ function ProfilePage() {
     return () => {
       if (streamTimerRef.current) {
         clearInterval(streamTimerRef.current);
+        streamTimerRef.current = null;
       }
     };
-  }, [activeTab, currentUser]);
+  }, [activeTab, currentUser, fetchStreamInfo, isStreamActive, streamInfo]);
+
+  // Add page visibility tracking to avoid unnecessary API calls when page is not visible
+  useEffect(() => {
+    // Skip if not in stream tab or if no stream is active
+    if (!currentUser || (activeTab !== "stream" && !isStreamActive)) {
+      return;
+    }
+
+    // Handler for page visibility changes
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        // Page is hidden, clear interval to save resources
+        if (streamTimerRef.current) {
+          clearInterval(streamTimerRef.current);
+          streamTimerRef.current = null;
+        }
+      } else {
+        // Page is visible again, fetch latest data and restart interval if needed
+        fetchStreamInfo();
+
+        if (
+          !streamTimerRef.current &&
+          (activeTab === "stream" || isStreamActive)
+        ) {
+          streamTimerRef.current = setInterval(() => {
+            fetchStreamInfo();
+          }, 30000);
+        }
+      }
+    };
+
+    // Add visibility change listener
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    // Cleanup
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [activeTab, currentUser, fetchStreamInfo, isStreamActive]);
 
   // Function to terminate active stream
   const handleTerminateStream = async () => {
@@ -216,6 +267,9 @@ function ProfilePage() {
 
   const handleUsernameUpdate = async (e) => {
     e.preventDefault();
+    // Prevents multiple requests while one is in progress
+    if (isLoading) return;
+
     setIsLoading(true);
     setSuccessMessage("");
     setErrorMessage("");
@@ -269,6 +323,8 @@ function ProfilePage() {
 
   const handleEmailUpdate = async (e) => {
     e.preventDefault();
+    if (isLoading) return;
+
     setIsLoading(true);
     setSuccessMessage("");
     setErrorMessage("");
