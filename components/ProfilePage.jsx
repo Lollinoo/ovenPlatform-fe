@@ -782,7 +782,9 @@ function ProfilePage() {
                         className="btn danger-btn"
                         disabled={streamLoading}
                       >
-                        {streamLoading ? "Terminating..." : "Terminate Stream"}
+                        {streamLoading
+                          ? "Terminating..."
+                          : "Terminate Stream(debug)"}
                       </button>
                     </div>
                   </>

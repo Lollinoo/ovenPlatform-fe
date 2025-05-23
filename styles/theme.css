@@ -1,47 +1,45 @@
 /* Material Design Theme Variables */
 :root {
-  /* Colori primari di Twitch */
-  --color-primary: #9147ff; /* Viola principale di Twitch */
-  --color-primary-rgb: 145, 71, 255; /* Viola principale in formato RGB */
-  --color-primary-dark: #772ce8; /* Viola scuro per hover */
-  --color-secondary: #f0f0ff; /* Sfumatura viola chiaro */
+  --color-primary: #9147ff; /* Twitch main purple */
+  --color-primary-rgb: 145, 71, 255; /* Main purple in RGB format */
+  --color-primary-dark: #772ce8; /* Dark purple for hover */
+  --color-secondary: #f0f0ff; /* Light purple shade */
   --color-accent: #00b5ad; /* Accent color */
 
-  /* Colori di sfondo */
-  --color-background: #0e0e10; /* Sfondo scuro principale */
-  --color-background-alt: #18181b; /* Sfondo per card e container */
-  --color-background-light: #1f1f23; /* Sfondo per elementi in evidenza */
+  /* Background colors */
+  --color-background: #0e0e10; /* Main dark background */
+  --color-background-alt: #18181b; /* Background for cards and containers */
+  --color-background-light: #1f1f23; /* Background for highlighted elements */
 
-  /* Colori di testo */
-  --color-text: #efeff1; /* Testo principale chiaro */
-  --color-text-muted: #adadb8; /* Testo secondario/disabilitato */
-  --color-text-dark: #0e0e10; /* Testo scuro su sfondi chiari */
+  /* Text Colors  */
+  --color-text: #efeff1; /* Light primary text */
+  --color-text-muted: #adadb8; /* Secondary/disabled text */
+  --color-text-dark: #0e0e10; /* Dark text on light backgrounds */
 
-  /* Altri colori */
-  --color-success: #3eb489; /* Verde per stati di successo */
-  --color-success-rgb: 62, 180, 137; /* Verde per stati di successo in RGB */
-  --color-warning: #ffb71b; /* Giallo per avvisi */
-  --color-warning-rgb: 255, 183, 27; /* Giallo per avvisi in RGB */
-  --color-error: #e91916; /* Rosso per errori */
-  --color-error-rgb: 233, 25, 22; /* Rosso per errori in RGB */
-  --color-live: #e91916; /* Rosso per indicatore LIVE */
-  --color-disabled: #6e6e73; /* Colore per elementi disabilitati */
+  --color-success: #3eb489; /* Green for success states */
+  --color-success-rgb: 62, 180, 137; /* Green for success states in RGB */
+  --color-warning: #ffb71b; /* Yellow for warnings */
+  --color-warning-rgb: 255, 183, 27; /* Yellow for warnings in RGB */
+  --color-error: #e91916; /* Red for errors */
+  --color-error-rgb: 233, 25, 22; /* Red for errors in RGB */
+  --color-live: #e91916; /* Red for LIVE indicator */
+  --color-disabled: #6e6e73; /* Color for disabled elements */
 
-  /* Bordi e ombre */
+  /* Borders and shadows */
   --border-radius-small: 4px;
   --border-radius-medium: 8px;
   --border-radius-large: 12px;
   --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   --box-shadow-hover: 0 6px 16px rgba(0, 0, 0, 0.2);
 
-  /* Spaziatura */
+  /* Spacing */
   --spacing-xs: 4px;
   --spacing-sm: 8px;
   --spacing-md: 16px;
   --spacing-lg: 24px;
   --spacing-xl: 32px;
 
-  /* Tipografia */
+  /* Typography */
   --font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Helvetica, Arial, sans-serif;
   --font-size-xs: 0.75rem; /* 12px */
@@ -56,7 +54,7 @@
   --font-weight-bold: 600;
   --font-weight-black: 700;
 
-  /* Transizioni */
+  /* Transictions */
   --transition-fast: 0.15s ease;
   --transition-normal: 0.25s ease;
   --transition-slow: 0.4s ease;

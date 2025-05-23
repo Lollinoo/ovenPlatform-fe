@@ -260,9 +260,9 @@ function RegisterPage() {
           {/* {errors.password && (
             <div className="error-message">{errors.password}</div>
           )} */}
-          <div className="password-requirements">
-            <small>Password requirements:</small>
-            <ul>
+          <div className="validation-requirements">
+            <p className="validation-title">Password requirements:</p>
+            <ul className="validation-list">
               <li className={validation.minLength ? "valid" : "invalid"}>
                 <span className="validation-icon">
                   {validation.minLength ? "✓" : "✗"}
@@ -291,7 +291,7 @@ function RegisterPage() {
                 <span className="validation-icon">
                   {validation.hasSpecial ? "✓" : "✗"}
                 </span>
-                One special character
+                One special character (!@#$%&)
               </li>
             </ul>
           </div>

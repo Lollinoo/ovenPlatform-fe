@@ -84,14 +84,16 @@ function App() {
 
               {/* Debug Routes (Development Only) */}
               {!config.app.isProduction && (
-                <Route
-                  path="/env-debug"
-                  element={
-                    <ProtectedRoute>
-                      <EnvDebugger />
-                    </ProtectedRoute>
-                  }
-                />
+                <>
+                  <Route
+                    path="/env-debug"
+                    element={
+                      <ProtectedRoute>
+                        <EnvDebugger />
+                      </ProtectedRoute>
+                    }
+                  />
+                </>
               )}
 
               {/* Fallback Route */}
