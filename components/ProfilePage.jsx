@@ -635,20 +635,53 @@ function ProfilePage() {
 
             <div className="rtmp-info">
               <div className="form-group">
-                <label>Your RTMP URL</label>
+                <label>Server URL</label>
                 <div className="rtmp-url-container">
                   <input
                     type="text"
                     value={
-                      rtmpUrl ||
-                      "Generating RTMP URL... Please wait or refresh the page."
+                      rtmpUrl
+                        ? rtmpUrl.substring(0, rtmpUrl.lastIndexOf("/") + 1)
+                        : "Generating Server URL... Please wait or refresh the page."
                     }
                     readOnly
                   />
                   {rtmpUrl && (
                     <button
                       className="copy-btn"
-                      onClick={() => copyToClipboard(rtmpUrl)}
+                      onClick={() =>
+                        copyToClipboard(
+                          rtmpUrl.substring(0, rtmpUrl.lastIndexOf("/") + 1)
+                        )
+                      }
+                      type="button"
+                    >
+                      Copy
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label>Stream Key</label>
+                <div className="rtmp-url-container">
+                  <input
+                    type="text"
+                    value={
+                      rtmpUrl
+                        ? rtmpUrl.substring(rtmpUrl.lastIndexOf("/") + 1)
+                        : "Generating Stream Key... Please wait or refresh the page."
+                    }
+                    readOnly
+                  />
+                  {rtmpUrl && (
+                    <button
+                      className="copy-btn"
+                      onClick={() =>
+                        copyToClipboard(
+                          rtmpUrl.substring(rtmpUrl.lastIndexOf("/") + 1)
+                        )
+                      }
                       type="button"
                     >
                       Copy
