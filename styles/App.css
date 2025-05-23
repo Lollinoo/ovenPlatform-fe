@@ -1,11 +1,11 @@
-/* App stile Twitch */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body, html {
+body,
+html {
   height: 100%;
   font-family: var(--font-family);
   background-color: var(--color-background);
@@ -31,7 +31,12 @@ button {
   font-family: var(--font-family);
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin: 0;
   font-weight: var(--font-weight-bold);
   line-height: 1.2;
@@ -41,7 +46,6 @@ p {
   margin: 0 0 var(--spacing-sm) 0;
 }
 
-/* App styles with Material Design */
 .app-container {
   display: flex;
   flex-direction: column;
@@ -55,19 +59,18 @@ p {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  margin-top: 64px; /* Spazio per la navbar */
-  margin-bottom: 80px; /* Spazio per il footer */
+  margin-top: 64px;
+  margin-bottom: 80px;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .content-container {
     padding: var(--spacing-sm);
-    margin-bottom: 100px; /* Aumenta lo spazio per il footer su mobile */
+    margin-bottom: 100px;
   }
 }
 
-/* Scrollbar personalizzata stile Twitch */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -86,7 +89,6 @@ p {
   background: var(--color-primary);
 }
 
-/* Utilitari */
 .text-primary {
   color: var(--color-primary);
 }
@@ -119,47 +121,97 @@ p {
   box-shadow: var(--box-shadow);
 }
 
-.p-1 { padding: var(--spacing-xs); }
-.p-2 { padding: var(--spacing-sm); }
-.p-3 { padding: var(--spacing-md); }
-.p-4 { padding: var(--spacing-lg); }
+.p-1 {
+  padding: var(--spacing-xs);
+}
+.p-2 {
+  padding: var(--spacing-sm);
+}
+.p-3 {
+  padding: var(--spacing-md);
+}
+.p-4 {
+  padding: var(--spacing-lg);
+}
 
-.m-1 { margin: var(--spacing-xs); }
-.m-2 { margin: var(--spacing-sm); }
-.m-3 { margin: var(--spacing-md); }
-.m-4 { margin: var(--spacing-lg); }
+.m-1 {
+  margin: var(--spacing-xs);
+}
+.m-2 {
+  margin: var(--spacing-sm);
+}
+.m-3 {
+  margin: var(--spacing-md);
+}
+.m-4 {
+  margin: var(--spacing-lg);
+}
 
-.mt-1 { margin-top: var(--spacing-xs); }
-.mt-2 { margin-top: var(--spacing-sm); }
-.mt-3 { margin-top: var(--spacing-md); }
-.mt-4 { margin-top: var(--spacing-lg); }
+.mt-1 {
+  margin-top: var(--spacing-xs);
+}
+.mt-2 {
+  margin-top: var(--spacing-sm);
+}
+.mt-3 {
+  margin-top: var(--spacing-md);
+}
+.mt-4 {
+  margin-top: var(--spacing-lg);
+}
 
-.mb-1 { margin-bottom: var(--spacing-xs); }
-.mb-2 { margin-bottom: var(--spacing-sm); }
-.mb-3 { margin-bottom: var(--spacing-md); }
-.mb-4 { margin-bottom: var(--spacing-lg); }
+.mb-1 {
+  margin-bottom: var(--spacing-xs);
+}
+.mb-2 {
+  margin-bottom: var(--spacing-sm);
+}
+.mb-3 {
+  margin-bottom: var(--spacing-md);
+}
+.mb-4 {
+  margin-bottom: var(--spacing-lg);
+}
 
-.mr-1 { margin-right: var(--spacing-xs); }
-.mr-2 { margin-right: var(--spacing-sm); }
-.mr-3 { margin-right: var(--spacing-md); }
-.mr-4 { margin-right: var(--spacing-lg); }
+.mr-1 {
+  margin-right: var(--spacing-xs);
+}
+.mr-2 {
+  margin-right: var(--spacing-sm);
+}
+.mr-3 {
+  margin-right: var(--spacing-md);
+}
+.mr-4 {
+  margin-right: var(--spacing-lg);
+}
 
-.ml-1 { margin-left: var(--spacing-xs); }
-.ml-2 { margin-left: var(--spacing-sm); }
-.ml-3 { margin-left: var(--spacing-md); }
-.ml-4 { margin-left: var(--spacing-lg); }
+.ml-1 {
+  margin-left: var(--spacing-xs);
+}
+.ml-2 {
+  margin-left: var(--spacing-sm);
+}
+.ml-3 {
+  margin-left: var(--spacing-md);
+}
+.ml-4 {
+  margin-left: var(--spacing-lg);
+}
 
-/* Animazioni */
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .fade-in {
   animation: fadeIn 0.3s ease;
 }
 
-/* Pulsante animato stile Twitch */
 .twitch-button {
   display: inline-flex;
   align-items: center;
@@ -190,7 +242,7 @@ p {
 }
 
 .twitch-button::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   left: 50%;

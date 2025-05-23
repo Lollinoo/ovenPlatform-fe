@@ -68,25 +68,18 @@ function ProfilePage() {
   // Load user data
   useEffect(() => {
     if (currentUser) {
-      const userDataChanged =
-        username !== (currentUser.username || "") ||
-        email !== (currentUser.email || "") ||
-        rtmpUrl !== (currentUser.rtmpUrl || "");
+      setUsername(currentUser.username || "");
+      setEmail(currentUser.email || "");
 
-      if (userDataChanged) {
-        setUsername(currentUser.username || "");
-        setEmail(currentUser.email || "");
+      if (currentUser.rtmpUrl) {
+        setRtmpUrl(currentUser.rtmpUrl);
+      } else {
+        setRtmpUrl("");
+      }
 
-        if (currentUser.rtmpUrl) {
-          setRtmpUrl(currentUser.rtmpUrl);
-        } else {
-          setRtmpUrl("");
-        }
-
-        if (currentUser.rtmpUrlExpiresAt) {
-          const expiryDate = new Date(currentUser.rtmpUrlExpiresAt);
-          setRtmpUrlExpiry(expiryDate);
-        }
+      if (currentUser.rtmpUrlExpiresAt) {
+        const expiryDate = new Date(currentUser.rtmpUrlExpiresAt);
+        setRtmpUrlExpiry(expiryDate);
       }
 
       // Check username change availability
@@ -113,7 +106,7 @@ function ProfilePage() {
         );
       }
     }
-  }, [currentUser, username, email, rtmpUrl]);
+  }, [currentUser]);
 
   // Function to fetch stream information
   const fetchStreamInfo = useCallback(async () => {
@@ -642,20 +635,53 @@ function ProfilePage() {
 
             <div className="rtmp-info">
               <div className="form-group">
-                <label>Your RTMP URL</label>
+                <label>Server URL</label>
                 <div className="rtmp-url-container">
                   <input
                     type="text"
                     value={
-                      rtmpUrl ||
-                      "Generating RTMP URL... Please wait or refresh the page."
+                      rtmpUrl
+                        ? rtmpUrl.substring(0, rtmpUrl.lastIndexOf("/") + 1)
+                        : "Generating Server URL... Please wait or refresh the page."
                     }
                     readOnly
                   />
                   {rtmpUrl && (
                     <button
                       className="copy-btn"
-                      onClick={() => copyToClipboard(rtmpUrl)}
+                      onClick={() =>
+                        copyToClipboard(
+                          rtmpUrl.substring(0, rtmpUrl.lastIndexOf("/") + 1)
+                        )
+                      }
+                      type="button"
+                    >
+                      Copy
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label>Stream Key</label>
+                <div className="rtmp-url-container">
+                  <input
+                    type="text"
+                    value={
+                      rtmpUrl
+                        ? rtmpUrl.substring(rtmpUrl.lastIndexOf("/") + 1)
+                        : "Generating Stream Key... Please wait or refresh the page."
+                    }
+                    readOnly
+                  />
+                  {rtmpUrl && (
+                    <button
+                      className="copy-btn"
+                      onClick={() =>
+                        copyToClipboard(
+                          rtmpUrl.substring(rtmpUrl.lastIndexOf("/") + 1)
+                        )
+                      }
                       type="button"
                     >
                       Copy
@@ -756,7 +782,9 @@ function ProfilePage() {
                         className="btn danger-btn"
                         disabled={streamLoading}
                       >
-                        {streamLoading ? "Terminating..." : "Terminate Stream"}
+                        {streamLoading
+                          ? "Terminating..."
+                          : "Terminate Stream(debug)"}
                       </button>
                     </div>
                   </>

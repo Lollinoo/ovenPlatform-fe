@@ -159,19 +159,9 @@ export const AuthProvider = ({ children }) => {
         throw new Error(response.message || "Email verification failed");
       }
 
-      // Aggiorna il currentUser con i dati aggiornati dall'API
-      if (response.rtmpUrl) {
-        // Se l'API ha risposto con rtmpUrl, aggiorniamo esplicitamente
-        setCurrentUser((prevState) => ({
-          ...prevState,
-          isVerified: true,
-          rtmpUrl: response.rtmpUrl,
-          rtmpUrlExpiresAt: response.rtmpUrlExpiresAt,
-        }));
-      } else {
-        // Altrimenti riscarichiamo l'utente completo
-        await checkAuth();
-      }
+      // Email verification should NOT automatically log the user in
+      // The user should be redirected to login page to authenticate with credentials
+      // Do not update currentUser state to avoid showing authenticated navbar
 
       return { success: true, message: response.message };
     } catch (err) {

@@ -3,7 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.prod
-    image: oven-frontend-prod:1.5.1
+    image: oven-frontend-prod:1.5.2
     hostname: oven-frontend-prod
     container_name: oven-frontend-prod
     ports:

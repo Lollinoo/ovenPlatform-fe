@@ -2,7 +2,6 @@
 // Handles stream creation, polling for updates, and thumbnail management
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import "../styles/StreamsPage.css";
-import CreateStreamModal from "./CreateStreamModal";
 import {
   setupThumbnailTimer,
   cleanupThumbnail,
@@ -654,25 +653,10 @@ function StreamsPage() {
       <div className="streams-container">
         <div className="page-header">
           <h1 className="page-title">Active Streams</h1>
-          <button
-            onClick={() => setModalIsOpen(true)}
-            className="create-stream-button"
-          >
-            <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-              <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-            </svg>
-            Create New Stream
-          </button>
         </div>
 
         {renderMainContent}
       </div>
-
-      <CreateStreamModal
-        isOpen={modalIsOpen}
-        onClose={() => setModalIsOpen(false)}
-        onCreateStream={handleCreateStream}
-      />
     </div>
   );
 }
