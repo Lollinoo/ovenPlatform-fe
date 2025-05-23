@@ -485,7 +485,8 @@
 
 .rtmp-expiry {
   margin: var(--spacing-lg) 0;
-  padding: var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-md) var(--spacing-md)
+    calc(var(--spacing-md) * 2 + 24px);
   background: linear-gradient(
     135deg,
     rgba(255, 183, 27, 0.1),
@@ -505,8 +506,10 @@
   left: var(--spacing-md);
   top: 50%;
   transform: translateY(-50%);
-  font-size: var(--font-size-lg);
-  animation: pulse 2s infinite;
+  font-size: var(--font-size-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .rtmp-help {
