@@ -68,25 +68,18 @@ function ProfilePage() {
   // Load user data
   useEffect(() => {
     if (currentUser) {
-      const userDataChanged =
-        username !== (currentUser.username || "") ||
-        email !== (currentUser.email || "") ||
-        rtmpUrl !== (currentUser.rtmpUrl || "");
+      setUsername(currentUser.username || "");
+      setEmail(currentUser.email || "");
 
-      if (userDataChanged) {
-        setUsername(currentUser.username || "");
-        setEmail(currentUser.email || "");
+      if (currentUser.rtmpUrl) {
+        setRtmpUrl(currentUser.rtmpUrl);
+      } else {
+        setRtmpUrl("");
+      }
 
-        if (currentUser.rtmpUrl) {
-          setRtmpUrl(currentUser.rtmpUrl);
-        } else {
-          setRtmpUrl("");
-        }
-
-        if (currentUser.rtmpUrlExpiresAt) {
-          const expiryDate = new Date(currentUser.rtmpUrlExpiresAt);
-          setRtmpUrlExpiry(expiryDate);
-        }
+      if (currentUser.rtmpUrlExpiresAt) {
+        const expiryDate = new Date(currentUser.rtmpUrlExpiresAt);
+        setRtmpUrlExpiry(expiryDate);
       }
 
       // Check username change availability
@@ -113,7 +106,7 @@ function ProfilePage() {
         );
       }
     }
-  }, [currentUser, username, email, rtmpUrl]);
+  }, [currentUser]);
 
   // Function to fetch stream information
   const fetchStreamInfo = useCallback(async () => {
