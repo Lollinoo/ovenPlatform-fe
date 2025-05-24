@@ -10,6 +10,11 @@ services:
       - "4173:4173"
     env_file:
       - .env
+    environment:
+      #   # Override environment variables as needed
+      #   # VITE_APP_NAME: "OvenPlatform"
+      #   # VITE_WEBRTC_URL_BASE: "wss://stream.example.com/app"
+      VITE_LLHLS_URL_BASE: "https://stream.example.com/app"
     restart: unless-stopped
     networks:
       - ovenPlatform-net
