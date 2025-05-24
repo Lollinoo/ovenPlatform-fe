@@ -33,7 +33,6 @@ COPY --from=builder /app/scripts/entrypoint.sh /app/entrypoint.sh
 # Copy environment config utilities for runtime processing
 COPY --from=builder /app/scripts/generate-env.cjs /app/scripts/
 COPY --from=builder /app/scripts/setup-env.cjs /app/scripts/
-COPY --from=builder /app/scripts/check-env.cjs /app/scripts/
 # Make scripts executable
 RUN chmod +x /app/entrypoint.sh /app/scripts/*.cjs
 EXPOSE 4173
