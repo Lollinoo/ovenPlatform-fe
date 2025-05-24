@@ -9,7 +9,7 @@ ENV_FILE="/app/.env"
 echo "Checking for environment configurations..."
 
 # Priority 1: Check for existing .env file in app root
-elif [ -f "$ENV_FILE" ]; then
+if [ -f "$ENV_FILE" ]; then
   echo "Using existing .env file at $ENV_FILE"
 
 # Priority 2: Generate .env file from container environment variables
