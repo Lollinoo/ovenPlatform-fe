@@ -23,7 +23,7 @@
     "@mui/icons-material": "^7.1.0",
     "@mui/material": "^7.1.0",
     "hls.js": "^1.6.2",
-    "ovenplayer": "^0.10.40",
+    "ovenplayer": "^0.10.42",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.5.3",
