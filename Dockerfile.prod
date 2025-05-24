@@ -13,17 +13,44 @@ WORKDIR /app
 COPY package.json package-lock.json* ./
 RUN npm install
 COPY . .
+# Generate a minimal .env for build if none exists
+RUN if [ ! -f .env ]; then \
+    echo "Creating minimal .env file for build phase"; \
+    echo "VITE_APP_NAME=OvenPlatform" > .env; \
+    echo "VITE_MODE=production" >> .env; \
+    fi
 RUN npm run build
 
 # Build production image
 FROM node:22.15.0-alpine3.20
 ENV NODE_ENV=production
 ENV VITE_MODE=production
+ENV DOCKER_BUILD=true
 WORKDIR /app
 RUN npm install -g serve
 COPY --from=builder /app/dist /app/dist
-COPY --from=builder /app/.env /app/.env
 COPY --from=builder /app/scripts/entrypoint.sh /app/entrypoint.sh
-RUN chmod +x /app/entrypoint.sh
+# Copy environment config utilities for runtime processing
+COPY --from=builder /app/scripts/generate-env.cjs /app/scripts/
+COPY --from=builder /app/scripts/setup-env.cjs /app/scripts/
+COPY --from=builder /app/scripts/check-env.cjs /app/scripts/
+# Make scripts executable
+RUN chmod +x /app/entrypoint.sh /app/scripts/*.cjs
 EXPOSE 4173
+
+# Make a directory for environment files
+RUN mkdir -p /app/config
+
+# Environment variables with default values
+# These can be overridden at runtime
+ENV VITE_APP_NAME="OvenPlatform"
+ENV VITE_WEBRTC_URL_BASE="wss://stream.example.com/app"
+ENV VITE_LLHLS_URL_BASE="https://stream.example.com/app"
+ENV VITE_TURN_SERVER_URL_UDP="turn:turn.example.com:3478"
+ENV VITE_TURN_SERVER_URL_TCP="turn:turn.example.com:3478?transport=tcp"
+ENV VITE_TURN_SERVER_USERNAME="username"
+ENV VITE_TURN_SERVER_CREDENTIAL="password"
+ENV VITE_DEBUG_ENABLED="false"
+ENV VITE_LOG_LEVEL="info"
+
 CMD ["/app/entrypoint.sh"]
