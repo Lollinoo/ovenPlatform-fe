@@ -1,7 +1,7 @@
 {
   "name": "oven-frontend",
   "private": true,
-  "version": "1.5.2",
+  "version": "1.5.3",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,8 +10,8 @@
     "preview": "vite preview",
     "setup-env": "node scripts/setup-env.cjs",
     "update-env-example": "node scripts/generate-env.cjs",
-    "docker-build:dev": "docker build -t oven-frontend-dev:1.5.2 -f Dockerfile.dev .",
-    "docker-build:prod": "docker build -t oven-frontend-prod:1.5.2 -f Dockerfile.prod .",
+    "docker-build:dev": "docker build -t oven-frontend-dev:1.5.3 -f Dockerfile.dev .",
+    "docker-build:prod": "docker build -t oven-frontend-prod:1.5.3 -f Dockerfile.prod .",
     "docker-run:dev": "docker compose -f compose-dev.yaml up -d --force-recreate "
   },
   "dependencies": {
