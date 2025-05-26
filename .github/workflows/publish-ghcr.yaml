@@ -1,0 +1,48 @@
+name: Build and Publish Docker Image from package.json
+
+on:
+  push:
+    branches:
+      - mainBranch
+
+jobs:
+  build_and_publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker login to GHCR
+        run: echo "${{ secrets.GH_PAT }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Read version from package.json
+        id: version
+        run: |
+          VERSION=$(jq -r .version package.json)
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "::set-output name=tag::v$VERSION"
+
+      - name: Build Docker image
+        run: |
+          docker build . \
+            -f Dockerfile.prod \
+            -t ghcr.io/${{ github.repository_owner }}/oven-platform-fe:v${{ env.VERSION }} \
+            -t ghcr.io/${{ github.repository_owner }}/oven-platform-fe:latest
+
+      - name: Push Docker image
+        run: |
+          docker push ghcr.io/${{ github.repository_owner }}/oven-platform-fe:v${{ env.VERSION }}
+          docker push ghcr.io/${{ github.repository_owner }}/oven-platform-fe:latest
+
+      - name: Create Git Tag if not exists
+        run: |
+          TAG="v${{ env.VERSION }}"
+          if git rev-parse "$TAG" >/dev/null 2>&1 || git ls-remote --tags origin | grep -q "refs/tags/$TAG"; then
+            echo "$TAG already exists, skip."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git tag -a "$TAG" -m "Release $TAG"
+            git push origin "$TAG"
+          fi
